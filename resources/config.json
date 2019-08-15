@@ -1,0 +1,16 @@
+{
+  "datacollector": {
+    "connectors": {
+      "datasource": {
+        "type": "prometheus",
+        "srvaddress": ""
+      }
+    },
+    "historytime": 1209600,
+    "maxduration": 604800,
+    "output": {
+      "json": "/opt/tsdc-data/json",
+      "csv": "/opt/tsdc-data/csv"
+    }
+  }
+}

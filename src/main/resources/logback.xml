@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+© 2019 Nokia
+
+Licensed under the BSD 3 Clause license
+SPDX-License-Identifier: BSD-3-Clause
+-->
+<configuration>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>log/time-series-data-collector.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss,SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss,SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="deng" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
