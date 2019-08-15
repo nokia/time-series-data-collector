@@ -1,6 +1,6 @@
 # Time series data collector
 
-Generic time series data collector.<br/>
+Generic time series data collector / exporter.<br/>
 Currently, only Prometheus is available as a data source.<br/>
 
 It offers the following features:
