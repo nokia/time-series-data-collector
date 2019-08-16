@@ -10,7 +10,7 @@ It offers the following features:
 - Get time series considering only a start point.
 - Export the time series in JSON or CSV files via a shared volume or web services.
 
-One of the main advantages of these features is that they don't have any size limit for the time series. If the time series database has its own limit, Pronoia will split the queries automatically and reconstruct the whole time series.
+One of the main advantages of these features is that they don't have any size limit for the time series. If the time series database has its own limit, TSDC will split the queries automatically and reconstruct the whole time series.
 
 The solution is containerized.
 
@@ -66,7 +66,7 @@ The only thing you need to do is to:
 
 ## How it works
 
-Pronoia is based on range queries.<br/>
+TSDC is based on range queries.<br/>
 If the range is too big, the queries will be splitted automatically.<br/>
 If one or both of the edges of the range are missing, here's the following cases:<br/>
 - Only the start time is set
