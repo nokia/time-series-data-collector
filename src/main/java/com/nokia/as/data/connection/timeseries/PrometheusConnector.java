@@ -64,7 +64,10 @@ public class PrometheusConnector extends AbstractTimeseriesConnector {
         return queryType + "?query=" + StringUtil.URIencode(promQuery);
     }
 
-    private boolean isBrowsingComplete(long start, long end, ArrayList<Pair<Long, Long>> timeRanges, int currentIndex, Direction direction) {
+    private boolean isBrowsingComplete(long start,
+                                       long end,
+                                       ArrayList<Pair<Long, Long>> timeRanges,
+                                       int currentIndex, Direction direction) {
         return Direction.BACKWARD.equals(direction) && start > timeRanges.get(currentIndex).getLeft() ||
                 Direction.FORWARD.equals(direction) && end < timeRanges.get(currentIndex).getRight();
     }
@@ -162,14 +165,19 @@ public class PrometheusConnector extends AbstractTimeseriesConnector {
                     JSONObject metric = result.getJSONObject("metric");
 
                     String metricId;
-                    if (metric.length() > 0) {
-                        Iterator<String> keys = result.getJSONObject("metric").keys();
-                        String metricKey = keys.next();
-                        metricId = result
-                                .getJSONObject("metric")
-                                .getString(metricKey);
-                    } else {
-                        metricId = "" + DateUtil.getCurrentMillis();
+                    if(result.getJSONObject("metric").has("__name__")) {
+                        metricId = result.getJSONObject("metric").getString("__name__");
+                    }
+                    else {
+                        if (metric.length() > 0) {
+                            Iterator<String> keys = result.getJSONObject("metric").keys();
+                            String metricKey = keys.next();
+                            metricId = result
+                                    .getJSONObject("metric")
+                                    .getString(metricKey);
+                        } else {
+                            metricId = "" + DateUtil.getCurrentMillis();
+                        }
                     }
 
                     JSONArray values = result

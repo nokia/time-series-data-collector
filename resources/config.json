@@ -6,7 +6,7 @@
         "srvaddress": ""
       }
     },
-    "historytime": 1209600,
+    "historytime": 14400,
     "maxduration": 604800,
     "output": {
       "json": "/opt/tsdc-data/json",
