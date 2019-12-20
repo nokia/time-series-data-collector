@@ -40,12 +40,13 @@ public class EntryPoint {
      * @return a timeseries or a collection of timeseries considering a prometheus query.
      */
     @GET
-    @Path("get_ts")
+    @Path("get-ts")
     @Produces(MediaType.APPLICATION_JSON)
     public String getTimeseries(@QueryParam("query") String query,
                                 @QueryParam("id") String id,
                                 @QueryParam("start") Long start,
                                 @QueryParam("end") Long end,
+                                @QueryParam("historytime") Integer historyTime,
                                 @QueryParam("reducehttprequests") Boolean reduceHttpRequests) {
 
         id = Objects.toString(id, "");
@@ -63,6 +64,11 @@ public class EntryPoint {
                     query,
                     start,
                     App.collector.getMaxDuration(),
+                    reduceHttpRequests);
+        } else if (historyTime != null) {
+            timeseriesCollec = App.collector.getTimeseriesConnector().getHistoryTimeseries(
+                    query,
+                    historyTime,
                     reduceHttpRequests);
         } else {
             timeseriesCollec = App.collector.getTimeseriesConnector().getHistoryTimeseries(
