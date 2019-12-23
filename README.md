@@ -54,7 +54,27 @@ docker run --net=host time-series-data-collector
 |  id             | NO  | It's possible to set a custom ID in order to name the generated files. If not used, the ID will be auto-generated. |
 |  start          | NO  | The start timestamp (in seconds) of the time series. If not used, the collector will get the <b>historytime</b> last seconds of data |
 |  end          | NO  | Works only if the <b>start</b> parameter is used. Gets the time series from <b>start</b> to <b>end</b>. if not used, the collector will get the data from <b>start</b> to <b>start</b>+<b>maxduration</b>. |
+|  historytime  | NO  | Overrides the <b>historytime</b> parameter in the config.json. |
 |  reducehttprequests | NO  | Useful or not considering the use-cases. If you're getting continuous time series, this parameter is useless. However, if you're looking for an isolated time series in your data source (e.g a build in a CI context), it will do only the minimum necessary http requests. Enabled by default. |
+
+### Example
+
+Here's a Prometheus data source with 5 time series: [Prometheus data source](http://164.132.97.208:9090/graph?g0.range_input=6h&g0.expr=%7B__name__%3D~%22cpu1%7Ccpu2%7Cmemory%7Cbandwidth%7Cscore%22%7D&g0.tab=0) <br/>
+In this example the Prometheus query is very simple, we just get the 5 time series:
+```
+{__name__=~"cpu1|cpu2|memory|bandwidth|score"}
+```
+Same query, encoded for URLs:
+```
+%7B__name__%3D~"cpu1%7Ccpu2%7Cmemory%7Cbandwidth%7Cscore"%7D&
+```
+
+To get all time series:<br/>
+http://164.132.97.208/tsdc/collector/service/get-ts?query=%7B__name__%3D~%22cpu1%7Ccpu2%7Cmemory%7Cbandwidth%7Cscore%22%7D& <br/>
+Here, the <b>historytime</b> parameter is set to 14400 in the config.json, in order to get the 4 last hours of data for each time series
+
+Same query, but to get only the 200 last data points:<br/>
+http://164.132.97.208/tsdc/collector/service/get-ts?query=%7B__name__%3D~%22cpu1%7Ccpu2%7Cmemory%7Cbandwidth%7Cscore%22%7D&&historytime=200
 
 ## Set up SSL
 
@@ -82,7 +102,7 @@ If one or both of the edges of the range are missing, here's the following cases
 
 ### Architecture schema
 
-![tsdc-schema](https://user-images.githubusercontent.com/10490998/63107586-7ff79b80-bf85-11e9-844d-d61e26555390.png)
+![tsdc-schema](https://user-images.githubusercontent.com/10490998/71363317-05750300-2599-11ea-80e8-ef68ba804a1f.png)
 
 Icons made by [Smashicons](https://www.flaticon.com/authors/smashicons), 
 [DinosoftLabs](https://www.flaticon.com/authors/dinosoftlabs), 
