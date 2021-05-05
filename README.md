@@ -59,7 +59,7 @@ docker run --net=host time-series-data-collector
 
 ### Example
 
-Here's a Prometheus data source with 5 time series: [Prometheus data source](http://164.132.97.208:9090/graph?g0.range_input=6h&g0.expr=%7B__name__%3D~%22cpu1%7Ccpu2%7Cmemory%7Cbandwidth%7Cscore%22%7D&g0.tab=0) <br/>
+Here's a Prometheus data source with 5 time series: [Prometheus data source](http://35.180.94.1:9090/classic/graph?g0.range_input=2h&g0.expr=%7B__name__%3D~%22cpu1%7Ccpu2%7Cmemory%7Cbandwidth%7Cscore%22%7D&g0.tab=0) <br/>
 In this example the Prometheus query is very simple, we just get the 5 time series:
 ```
 {__name__=~"cpu1|cpu2|memory|bandwidth|score"}
@@ -70,11 +70,11 @@ Same query, encoded for URLs:
 ```
 
 To get all time series:<br/>
-http://164.132.97.208/tsdc/collector/service/get-ts?query=%7B__name__%3D~%22cpu1%7Ccpu2%7Cmemory%7Cbandwidth%7Cscore%22%7D& <br/>
+https://curry-chronicles.fr/tsdc/api/get-ts?query=%7B__name__%3D~%22cpu1%7Ccpu2%7Cmemory%7Cbandwidth%7Cscore%22%7D& <br/>
 Here, the <b>historytime</b> parameter is set to 14400 in the config.json, in order to get the 4 last hours of data for each time series
 
 Same query, but to get only the 200 last data points:<br/>
-http://164.132.97.208/tsdc/collector/service/get-ts?query=%7B__name__%3D~%22cpu1%7Ccpu2%7Cmemory%7Cbandwidth%7Cscore%22%7D&&historytime=200
+https://curry-chronicles.fr/tsdc/api/get-ts?query=%7B__name__%3D~%22cpu1%7Ccpu2%7Cmemory%7Cbandwidth%7Cscore%22%7D&&historytime=200
 
 ## Set up SSL
 
